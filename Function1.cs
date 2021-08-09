@@ -25,21 +25,23 @@ namespace NewsGraph
 
             if (!string.IsNullOrWhiteSpace(url))
             {
-                var httpClient = new HttpClient(); // init HttpClient Here
-                var response = await httpClient.GetAsync(url);
+                var httpClient = new HttpClient(); 
+                var response = await httpClient.GetAsync(url); // above 2 lines are required to get data stream from server
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    var xmlData = await response.Content.ReadAsStringAsync();
+                    var xmlData = await response.Content.ReadAsStringAsync(); // this line will convert stream to xml string
 
                     XmlDocument doc = new XmlDocument();
-                    doc.LoadXml(xmlData);
-                    var jsonData = JsonConvert.SerializeXmlNode(doc);
-                    var pruneData = PruneXml(jsonData);
+                    doc.LoadXml(xmlData); // these 2 line will read xml data and load to doc
+
+                    var jsonData = JsonConvert.SerializeXmlNode(doc); // this line will convert xml data in doc t0 json
+
+                    var pruneData = PruneXml(jsonData); // this will remove unwanted json nodes.
                     try
                     {
-                        var processedData = JsonConvert.DeserializeObject<IncomingINResponse[]>(pruneData);
-                        return new OkObjectResult(processedData);
+                        var processedData = JsonConvert.DeserializeObject<IncomingINResponse[]>(pruneData); // this is to convert incoming foramt to outgoing format
+                        return new OkObjectResult(processedData); // this is to finalize the out
                     }
                     catch (Exception ex)
                     {

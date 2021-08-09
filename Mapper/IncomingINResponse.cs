@@ -4,30 +4,15 @@ namespace NewsGraph.Mapper
 {
     public class IncomingINResponse
     {
-        //
-        //[JsonProperty("#cdata-section")]
-        public string title { get; set; }
+        public TitleData title { get; set; }
         public string link { get; set; }
-        //public string description { get; set; }
-        //public string category { get; set; }
-
-        //[JsonProperty("guid")]
-        //public Urlhash UrlGuid { get; set; }
-        //public string PubDate { get; set; }
-        //public PubSource Source { get; set; }
     }
-    //public class Urlhash
-    //{
-    //    [JsonProperty("#cdata-section")]
-    //    public string UrlGuid { get; set; }
-    //}
-    //public class PubSource
-    //{
-    //    [JsonProperty("@url")]
-    //    public string Url { get; set; }
-    //    [JsonProperty("#text")]
-    //    public string Publisher { get; set; }
-    //}
+
+    public class TitleData
+    {
+        [JsonProperty("#cdata-section")]
+        public string Title { get; set; }
+    }
 }
 
 
